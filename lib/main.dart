@@ -30,11 +30,15 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  int _counter = 0;
+  int _counter = 1;
 
   void _incrementCounter() {
     setState(() {
-      _counter += 1;
+      if (_counter < 1024 * 2 * 2 * 2 * 2 * 2 * 2 * 2 * 2 * 2 * 2 * 2 * 2 * 2 * 2 * 2 * 2 * 2 * 2) {
+        _counter = _counter * 2;
+      } else {
+        _counter = 1;
+      }
     });
   }
 
@@ -44,7 +48,10 @@ class _MyHomePageState extends State<MyHomePage> {
       appBar: AppBar(title: const Text('Bottom App Bar')),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
       floatingActionButton: FloatingActionButton(
-        child: const Icon(Icons.add),
+        child: const Icon(
+          Icons.tiktok,
+          color: Colors.white,
+        ),
         elevation: 2,
         onPressed: _incrementCounter,
       ),
@@ -56,18 +63,24 @@ class _MyHomePageState extends State<MyHomePage> {
       ),
       bottomNavigationBar: BottomAppBar(
         shape: const CircularNotchedRectangle(),
-        notchMargin: 4.0,
+        notchMargin: 2.0,
         child: Row(
           mainAxisSize: MainAxisSize.max,
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: <Widget>[
             IconButton(
-              icon: const Icon(Icons.menu),
-              onPressed: () {},
+              icon: const Icon(
+                Icons.menu,
+                color: Colors.blueGrey,
+              ),
+              onPressed: _incrementCounter,
             ),
             IconButton(
-              icon: const Icon(Icons.search),
-              onPressed: () {},
+              icon: const Icon(
+                Icons.save_rounded,
+                color: Colors.orange,
+              ),
+              onPressed: _incrementCounter,
             ),
           ],
         ),
