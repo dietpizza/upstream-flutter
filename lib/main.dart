@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_remix/flutter_remix.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 void main() {
   runApp(const MyApp());
@@ -12,9 +14,16 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Upstream',
+      debugShowCheckedModeBanner: false,
+      themeMode: ThemeMode.dark,
       theme: ThemeData(
-        primarySwatch: Colors.blue,
+        colorScheme: ColorScheme.fromSwatch().copyWith(
+          primary: Colors.blue.shade800,
+          secondary: Colors.blue.shade700,
+        ),
+        highlightColor: Colors.transparent,
         splashFactory: InkRipple.splashFactory,
+        // splashFactory: MaterialInkSplash.splashFactory,
       ),
       home: const MyHomePage(title: 'Flutter Demo Home Page'),
     );
@@ -30,59 +39,64 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  int _counter = 1;
+  int _counter = 0;
 
-  void _incrementCounter() {
+  void _incrementCounter(int n) {
     setState(() {
-      if (_counter < 1024 * 2 * 2 * 2 * 2 * 2 * 2 * 2 * 2 * 2 * 2 * 2 * 2 * 2 * 2 * 2 * 2 * 2 * 2) {
-        _counter = _counter * 2;
-      } else {
-        _counter = 1;
-      }
+      _counter = n;
     });
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text('Bottom App Bar')),
-      floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
-      floatingActionButton: FloatingActionButton(
-        child: const Icon(
-          Icons.tiktok,
-          color: Colors.white,
-        ),
-        elevation: 2,
-        onPressed: _incrementCounter,
-      ),
+      backgroundColor: Colors.black,
       body: Center(
-        child: Text(
-          _counter.toString(),
-          style: const TextStyle(fontSize: 32, color: Colors.grey),
+          child: Text(
+        'Screen ${_counter + 1}',
+        style: GoogleFonts.nunito(fontSize: 36, color: Colors.white),
+      )),
+      bottomNavigationBar: Theme(
+        data: ThemeData(
+          splashColor: Colors.transparent,
+          highlightColor: Colors.transparent,
         ),
-      ),
-      bottomNavigationBar: BottomAppBar(
-        shape: const CircularNotchedRectangle(),
-        notchMargin: 2.0,
-        child: Row(
-          mainAxisSize: MainAxisSize.max,
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: <Widget>[
-            IconButton(
-              icon: const Icon(
-                Icons.menu,
-                color: Colors.blueGrey,
-              ),
-              onPressed: _incrementCounter,
+        child: Container(
+          color: const Color(0x09ffffff),
+          child: Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 40, vertical: 5),
+            child: BottomNavigationBar(
+              showUnselectedLabels: false,
+              showSelectedLabels: false,
+              selectedIconTheme: const IconThemeData(size: 24),
+              selectedItemColor: Colors.grey.shade300,
+              unselectedItemColor: Colors.grey.shade600,
+              currentIndex: _counter,
+              elevation: 0,
+              onTap: (index) => setState(() => _counter = index),
+              backgroundColor: Colors.transparent,
+              items: const [
+                BottomNavigationBarItem(
+                  tooltip: '',
+                  activeIcon: Icon(FlutterRemix.home_fill),
+                  icon: Icon(FlutterRemix.home_line),
+                  label: 'Tab1',
+                ),
+                BottomNavigationBarItem(
+                  tooltip: '',
+                  activeIcon: Icon(FlutterRemix.search_fill),
+                  icon: Icon(FlutterRemix.search_line),
+                  label: 'Tab2',
+                ),
+                BottomNavigationBarItem(
+                  tooltip: '',
+                  activeIcon: Icon(FlutterRemix.settings_fill),
+                  icon: Icon(FlutterRemix.settings_line),
+                  label: 'Tab3',
+                ),
+              ],
             ),
-            IconButton(
-              icon: const Icon(
-                Icons.save_rounded,
-                color: Colors.orange,
-              ),
-              onPressed: _incrementCounter,
-            ),
-          ],
+          ),
         ),
       ),
     );
